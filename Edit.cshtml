@@ -1,0 +1,64 @@
+﻿@model EditGradeViewModel
+
+@{
+    ViewData["Title"] = "Edit a Grade";
+}
+
+<h1>Edit a Grade</h1>
+
+<p><a asp-action="AllGrades">All Grades</a></p>
+
+<p><a asp-action="AddGrades">Add a Grade</a></p>
+
+
+
+@if(Model.CurrentStudentGrade.GradeId > 0)
+{
+    <form method="post" asp-action="EditGrade">
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+        <input type="hidden" asp-for="CurrentStudentGrade.GradeId" />
+
+        <div class="mb-3">
+            <label class="form-label" asp-for="CurrentStudentGrade.Score">score</label>
+            <span class="form-text text-danger" asp-validation-for="CurrentStudentGrade.Score"></span>
+            <input class="form-control" type="text" asp-for="CurrentStudentGrade.Score" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" asp-for="CurrentStudentGrade.MaxScore">Max score</label>
+            <span class="form-text text-danger" asp-validation-for="CurrentStudentGrade.MaxScore"></span>
+            <input class="form-control" type="text" asp-for="CurrentStudentGrade.MaxScore" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" asp-for="CurrentStudentGrade.CourseId">Course</label>
+            <span class="form-text text-danger" asp-validation-for="CurrentStudentGrade.CourseId"></span>
+            <select class="form-select" asp-for="CurrentStudentGrade.CourseId">
+                <option value="">Select a Course</option>
+                @foreach (var course in Model.Courses)
+                {
+                    <option value="@course.CourseId">@course.Name</option>
+                }
+
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" asp-for="CurrentStudentGrade.Date">Date</label>
+            <span class="form-text text-danger" asp-validation-for="CurrentStudentGrade.Date"></span>
+            <input class="form-control" type="date" asp-for="CurrentStudentGrade.Date" />
+        </div>
+
+
+        <input class="btn btn-info" type="submit" value="Save" />
+    </form>
+}
+else
+{
+    <div class="alert alert-warning" role="alert">
+        No Students Grade found
+    </div>
+}
+@* asp-action has all grades so that it has a link to go to all grades from add grades *@
+

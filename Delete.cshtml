@@ -1,0 +1,40 @@
+﻿@model DeleteGradeViewModel
+
+@{
+    ViewData["Title"] = "Delete a Grade";
+}
+
+<h1>Delete a Grade</h1>
+
+<p><a asp-action="AllGrades">All Grades</a></p>
+
+<p><a asp-action="AddGrades">Add a Grade</a></p>
+
+
+
+@if(Model.CurrentStudentGrade.GradeId != null)
+{
+    <form method="post" asp-action="DeleteGrade">
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+        <input type="hidden" asp-for="CurrentStudentGrade.GradeId" />
+        <input type="hidden" asp-for="CurrentStudentGrade.Score" />
+        <input type="hidden" asp-for="CurrentStudentGrade.MaxScore" />
+        <input type="hidden" asp-for="CurrentStudentGrade.Date" />
+
+
+        <div class="mb-3">
+       <h4>Do you want to delete the grade @Model.CurrentStudentGrade.Score/ @Model.CurrentStudentGrade.MaxScore?</h4>
+       </div>
+
+        <input class="btn btn-danger" type="submit" value="Delete" />
+    </form>
+}
+else
+{
+    <div class="alert alert-warning" role="alert">
+        No Students Grade found
+    </div>
+}
+@* asp-action has all grades so that it has a link to go to all grades from add grades *@
+

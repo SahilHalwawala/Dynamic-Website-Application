@@ -1,0 +1,48 @@
+﻿@model AddGradesViewModel
+
+@{
+    ViewData["Title"] = "Add a Grade";
+}
+
+<h1>Add a Grade</h1>
+
+<p><a asp-action="AllGrades">All Grades</a></p>
+@* asp-action has all grades so that it has a link to go to all grades from add grades *@
+
+<form method="post" asp-action ="AddGrades">
+    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+    <div class="mb-3">
+        <label class="form-label" asp-for="NewStudentGrade.Score">score</label>
+        <span class="form-text text-danger" asp-validation-for="NewStudentGrade.Score"></span>
+        <input class="form-control" type="text" asp-for="NewStudentGrade.Score"  />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" asp-for="NewStudentGrade.MaxScore">Max score</label>
+        <span class="form-text text-danger" asp-validation-for="NewStudentGrade.MaxScore"></span>
+        <input class="form-control" type="text" asp-for="NewStudentGrade.MaxScore" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" asp-for="NewStudentGrade.CourseId">Course</label>
+        <span class="form-text text-danger" asp-validation-for="NewStudentGrade.CourseId"></span>
+        <select class="form-select" asp-for="NewStudentGrade.CourseId">
+            <option value="">Select a Course</option>
+            @foreach(var course in Model.Courses)
+            {
+                <option value="@course.CourseId">@course.Name</option>
+            }
+
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" asp-for="NewStudentGrade.Date">Date</label>
+        <span class="form-text text-danger" asp-validation-for="NewStudentGrade.Date"></span>
+        <input class="form-control" type="date" asp-for="NewStudentGrade.Date" />
+    </div>
+
+
+    <input class ="btn btn-primary" type="submit" value="Add"/>
+</form>

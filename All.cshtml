@@ -1,0 +1,55 @@
+﻿@model AllGradesViewModel
+
+@{
+    ViewData["Title"] = "All Grades";
+}
+
+<h1>All Grades</h1>
+
+<p><a asp-action="AddGrades">Add a Grade</a></p>
+@* asp-action has Add grades so that it has a link to go to Add grades from all grades *@
+@* Basically asp-action means link to go to another page *@
+@* AddGrades name comes from GradesController page *@
+
+@if(Model.AllStudentGrades.Count > 0)
+{
+    @if(TempData.Keys.Contains("message"))
+    {
+       
+           @TempData["message"]
+    }
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Score</th>
+                <th>Grade</th>
+                <th>Course</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            @foreach(var studentGrade in Model.AllStudentGrades)
+            {
+                <tr>
+                <td>@studentGrade.Score/@studentGrade.MaxScore</td>
+                <td>@studentGrade.Category</td>
+                <td>@studentGrade.Course?.Name</td>
+                <td>@studentGrade.Date?.ToString("MMM d, yyyy")</td>
+                <td>
+                    <a class="link-info" role="button" asp-action="EditGrade" asp-route-gradeID= "@studentGrade.GradeId">Edit</a> |
+                        <a class="link-danger" role ="button" asp-action="DeleteGrade" asp-route-gradeID="@studentGrade.GradeId">Delete</a>
+                </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+}
+else
+{
+    <div class="alert alert-warning" role="alert">
+        No Grades found! Add a grade.
+    </div>
+}
